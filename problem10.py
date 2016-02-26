@@ -2,7 +2,7 @@
 ##  Find the sum of all the primes below two million.
 
 
-import math
+import math, timeit
 
 # Define a primeFilter() function to apply via filter
 def primeFilter(num):
@@ -35,27 +35,32 @@ def primeSieve(maxNum):
         # Increment p
         p = numList[numList.index(p)+1] ## Next integer in list that has not been removed
         
-    return numList  # return numList if you want to test
+    return sum(numList)-1  # return numList if you want to test
     
     
 
 if __name__ == "__main__":
     print '\n\n\n========================\nStarting unit tests'
-    print '===================================='
-    print 'Testing primeFilter(10)'
-    print 'Expect true: ',primeFilter(2)
-    print 'Expect true: ',primeFilter(3)
-    print 'Expect false: ',primeFilter(4)
-    print 'Expect true: ',primeFilter(5)    # This is returning FALSE?
-    print 'Expect false: ',primeFilter(6)
-    print 'Expect true: ',primeFilter(7)
-    print 'Expect false: ',primeFilter(8)
-    print 'Expect false: ',primeFilter(9)
-    print 'Expect false: ',primeFilter(10)
-    print '===================================='
-    print 'Testing primeSieve()'
-    print primeSieve(2)
-    print primeSieve(3)
+    # print '===================================='
+    # print 'Testing primeFilter(10)'
+    # print 'Expect true: ',primeFilter(2)
+    # print 'Expect true: ',primeFilter(3)
+    # print 'Expect false: ',primeFilter(4)
+    # print 'Expect true: ',primeFilter(5)    # This is returning FALSE?
+    # print 'Expect false: ',primeFilter(6)
+    # print 'Expect true: ',primeFilter(7)
+    # print 'Expect false: ',primeFilter(8)
+    # print 'Expect false: ',primeFilter(9)
+    # print 'Expect false: ',primeFilter(10)
+    # print '===================================='
+    # print 'Testing primeSieve()'
+    # print primeSieve(2)
+    # print primeSieve(3)
     print primeSieve(10)
-    print primeSieve(20)
+    # print primeSieve(20)
+    # print primeSieve(2000000)
+    
+    # print(timeit.timeit("primeSieve(10)", setup="from __main__ import primeSieve", number=10))  # .0002
+    # print(timeit.timeit("primeSieve(1000)", setup="from __main__ import primeSieve", number=10)) #.06
+    # print(timeit.timeit("primeSieve(10000)", setup="from __main__ import primeSieve", number=10))  #2.21
     
