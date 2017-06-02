@@ -54,12 +54,13 @@ def get_product(array):
 '''
 for row in rows:
     for column in columns:
-        * check up/down 
+        * check up
             try the point in the grid at [current_row][current_row-4]
                 if it exists:
                     return the product of the four numbers
             except - keep going?
 
+        * check down
         * check left
         * check right
         * check diag up left
@@ -79,7 +80,7 @@ def grid_function(grid, number):
             # print 'At col_index %d' % col_index
             # print 'Current grid number is %d' % grid[row_index][col_index]
 
-            # UP/DOWN
+            # UP
             if row_index - 3 >= 0:
                 # print 'row_index - 3 is > = 0'
                 array = []
@@ -90,19 +91,19 @@ def grid_function(grid, number):
                 if get_product(array) not in results:
                     results.append(get_product(array))
 
-    # # DOWN
-    # for row_index in range(0, len(grid)):
-    #     # print 'At row_index %d' % row_index
-    #     for col_index in range(0, len(grid[row_index])):
-    #         if row_index + 3 < len(grid):
-    #             # print 'row_index + 3 is > = 0'
-    #             array = []
-    #             for i in range(0,4):
-    #                 array.append(grid[row_index+i][col_index])
-    #             # print 'array is now ', array
-    #             # print 'get_product(array) is now ', get_product(array)
-    #             if get_product(array) not in results:
-    #                 results.append(get_product(array))
+    # DOWN
+    for row_index in range(0, len(grid)):
+        # print 'At row_index %d' % row_index
+        for col_index in range(0, len(grid[row_index])):
+            if row_index + 3 < len(grid):
+                # print 'row_index + 3 is > = 0'
+                array = []
+                for i in range(0,4):
+                    array.append(grid[row_index+i][col_index])
+                # print 'array is now ', array
+                # print 'get_product(array) is now ', get_product(array)
+                if get_product(array) not in results:
+                    results.append(get_product(array))
 
     return results
 
