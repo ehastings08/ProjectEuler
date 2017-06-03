@@ -29,22 +29,13 @@ grid = [
 '''
 Planning
 
-There are three cardinal linear directions: up, down, left, right
-In addition to those there is diagonal: up left, up right, down left, down right
+There are two cardinal linear directions: horizontal and vertical
+In addition to those there is diagonal: down right, down left
 One option would be to loop through each option and multiply the four adjacent numbers for each
 Keeping in mind that boundaries of the grid must be respected - if four away in the chosen direction exists run it, if not skip
 '''
 
-# Helper Functions
-
-def get_product(array):
-    ''' Returns the product of all elements in an array'''
-    return reduce(lambda x, y: x * y, array)
-
 # Psuedocode
-
-# Just do one of the inner functions to start
-
 '''
 for row in rows:
     for column in columns:
@@ -57,18 +48,21 @@ for row in rows:
         * check diag down left
 '''
 
-# Code
+def get_product(array):
+    ''' Returns the product of all elements in an array'''
+    return reduce(lambda x, y: x * y, array)
+
+def add_if_not_present(int, source_array, results_array):
+    if get_product(source_array) not in results_array:
+        results_array.append(get_product(source_array))
 
 def grid_function(grid, number, test_mode):
+    ''' Loops through a grid passed as a parameter and calculates the product of adjacent number numbers. Test_mode is an optional argument to add and remove debugging print statements.'''
+
     results = []
 
     for row_index in range(0, len(grid)):
-        if test_mode: print 'At row_index %d' % row_index
         for col_index in range(0, len(grid[row_index])):
-            if test_mode: 
-                print '====================NEW LOOP ENTRY=================='
-                print 'At col_index %d' % col_index
-                print 'Current grid number is %d' % grid[row_index][col_index]
 
             # DOWN
             if row_index + number-1 < len(grid):
@@ -92,30 +86,19 @@ def grid_function(grid, number, test_mode):
                 array = []
                 for i in range(0,number):
                     array.append(grid[row_index+i][col_index+i])
-                if test_mode: print 'array is ', array
                 if get_product(array) not in results:
                     results.append(get_product(array))
-                if test_mode: print 'results are now ',results
 
             # # DIAG DOWN LEFT - NOT WORKING PROPERLY
-            if test_mode: 
-                print 'row_index is %d, col_index is %d' % (row_index, col_index)
-                print 'row_index + number - 1 is %d' % (row_index + number - 1)
-                print 'col_index - number + 1 is %d' % (col_index - number + 1)
-                print 'len(grid) is %d' % len(grid)
-                print 'len(grid)[0] is %d' % len(grid[0])
-                print '(row_index + number < len(grid))', ((row_index + number < len(grid)))
-                print '(col_index - number+1 >= 0)', (col_index - number+1 >= 0)
             if (row_index + number - 1 < len(grid)) & (col_index - number+1 >= 0):
                 array = []
                 for i in range(0,number):
                     array.append(grid[row_index+i][col_index-i])
-                if test_mode: print 'array is ',array
                 if get_product(array) not in results:
                     results.append(get_product(array))
-                if test_mode: print 'results are now ',results
 
     return sorted(results)
 
 if __name__ == '__main__':
-    print grid_function(grid, 4, False)
+    all_results = grid_function(grid, 4, False)
+    print 'Answer is: ', max(all_results)
