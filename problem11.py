@@ -73,32 +73,28 @@ def grid_function(grid, number, test_mode):
                 array = []
                 for i in range(0,number):
                     array.append(grid[row_index+i][col_index])
-                if get_product(array) not in results:
-                    results.append(get_product(array))
+                results = add_if_not_present(get_product(array), array, results)
 
             # RIGHT
             if col_index + number-1 < len(grid[0]):
                 array = []
                 for i in range(0,number):
                     array.append(grid[row_index][col_index+i])
-                if get_product(array) not in results:
-                    results.append(get_product(array))
+                results = add_if_not_present(get_product(array), array, results)
 
             # DIAGONAL DOWN RIGHT
             if (row_index + number - 1 < len(grid)) & (col_index + number-1 < len(grid[0])):
                 array = []
                 for i in range(0,number):
                     array.append(grid[row_index+i][col_index+i])
-                if get_product(array) not in results:
-                    results.append(get_product(array))
+                results = add_if_not_present(get_product(array), array, results)
 
             # # DIAGONAL DOWN LEFT
             if (row_index + number - 1 < len(grid)) & (col_index - number+1 >= 0):
                 array = []
                 for i in range(0,number):
                     array.append(grid[row_index+i][col_index-i])
-                if get_product(array) not in results:
-                    results.append(get_product(array))
+                results = add_if_not_present(get_product(array), array, results)
 
     return sorted(results)
 
