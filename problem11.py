@@ -2,12 +2,6 @@
 What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20x20 grid?
 '''
 
-test_grid_1 = [[8,1,2,3,4],
-[49,2,3,4,5],
-[81,3,4,5,6],
-[52,4,5,6,7],
-[22,5,6,7,8]]
-
 grid = [
 [8,2,22,97,38,15,0,40,0,75,4,5,7,78,52,12,50,77,91,8],
 [49,49,99,40,17,81,18,57,60,87,17,40,98,43,69,48,4,56,62,0],
@@ -58,25 +52,22 @@ for row in rows:
             try the point in the grid at [current_row][current_row-4]
                 if it exists:
                     return the product of the four numbers
-            except - keep going?
-
-        * check down
-        * check left
         * check right
         * check diag down right
-        * check diag down left
+        * check diag up left
 '''
 
 # Code
 
-def grid_function(grid, number):
+def grid_function(grid, number, test_mode):
     results = []
 
     for row_index in range(0, len(grid)):
-        # print 'At row_index %d' % row_index
+        if test_mode: print 'At row_index %d' % row_index
         for col_index in range(0, len(grid[row_index])):
-            # print 'At col_index %d' % col_index
-            # print 'Current grid number is %d' % grid[row_index][col_index]
+            if test_mode: 
+                print 'At col_index %d' % col_index
+                print 'Current grid number is %d' % grid[row_index][col_index]
 
             # DOWN
             if row_index + number-1 < len(grid):
@@ -84,8 +75,6 @@ def grid_function(grid, number):
                 array = []
                 for i in range(0,number):
                     array.append(grid[row_index+i][col_index])
-                # print 'array is now ', array
-                # print 'get_product(array) is now ', get_product(array)
                 if get_product(array) not in results:
                     results.append(get_product(array))
 
@@ -97,24 +86,33 @@ def grid_function(grid, number):
                 if get_product(array) not in results:
                     results.append(get_product(array))
 
-            # DIAG DOWN RIGHT
+            # DIAG DOWN RIGHT - NOT WORKING PROPERLY
+            if test_mode: 
+                print 'row_index is %d, col_index is %d' % (row_index, col_index)
+                print 'row_index + number - 1 is %d' % (row_index + number - 1)
+                print 'col_index + number - 1 is %d' % (col_index + number - 1)
+                print 'len(grid) is %d' % len(grid)
+                print 'len(grid)[0] is %d' % len(grid[0])
+                print '(row_index + number < len(grid))', ((row_index + number < len(grid)))
+                print '(col_index + number-1 < len(grid[0]))', (col_index + number-1 < len(grid[0]))
             if (row_index + number - 1 < len(grid)) & (col_index + number-1 < len(grid[0])):
                 array = []
                 for i in range(0,number):
                     array.append(grid[row_index+i][col_index+i])
+                if test_mode: print 'array is ', array
                 if get_product(array) not in results:
                     results.append(get_product(array))
+                if test_mode: print 'results are now ',results
 
-            # DIAG DOWN LEFT - SOMEHOW THIS IS GOING BACKWARDS
-            if (row_index + number - 1 < len(grid)) & (col_index - number-1 < len(grid[0])):
-                array = []
-                for i in range(0,number):
-                    array.append(grid[row_index+i][col_index-i])
-                if get_product(array) not in results:
-                    print 'array is: ', array
-                    results.append(get_product(array))
+            # # DIAG DOWN LEFT - NOT WORKING PROPERLY
+            # if (row_index + number) < len(grid) & (col_index - number + 1 > 0):
+            #     array = []
+            #     for i in range(0,number):
+            #         array.append(grid[row_index-i][col_index-i])
+            #     if get_product(array) not in results:
+            #         results.append(get_product(array))
 
     return sorted(results)
 
 if __name__ == '__main__':
-    print grid_function(test_grid_1, 4)
+    print grid_function(test_grid_1, 4, False)
