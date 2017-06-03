@@ -55,6 +55,9 @@ def get_product(array):
 def add_if_not_present(int, source_array, results_array):
     if get_product(source_array) not in results_array:
         results_array.append(get_product(source_array))
+        return results_array
+    else:
+        return results_array
 
 def grid_function(grid, number, test_mode):
     ''' Loops through a grid passed as a parameter and calculates the product of adjacent number numbers. Test_mode is an optional argument to add and remove debugging print statements.'''
@@ -81,7 +84,7 @@ def grid_function(grid, number, test_mode):
                 if get_product(array) not in results:
                     results.append(get_product(array))
 
-            # DIAG DOWN RIGHT - NOT WORKING PROPERLY
+            # DIAGONAL DOWN RIGHT
             if (row_index + number - 1 < len(grid)) & (col_index + number-1 < len(grid[0])):
                 array = []
                 for i in range(0,number):
@@ -89,7 +92,7 @@ def grid_function(grid, number, test_mode):
                 if get_product(array) not in results:
                     results.append(get_product(array))
 
-            # # DIAG DOWN LEFT - NOT WORKING PROPERLY
+            # # DIAGONAL DOWN LEFT
             if (row_index + number - 1 < len(grid)) & (col_index - number+1 >= 0):
                 array = []
                 for i in range(0,number):
