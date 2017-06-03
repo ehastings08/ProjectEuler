@@ -2,11 +2,11 @@
 What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20x20 grid?
 '''
 
-test_grid_1 = [[8],
-[49],
-[81],
-[52],
-[22]]
+test_grid_1 = [[8,1,2,3,4],
+[49,2,3,4,5],
+[81,3,4,5,6],
+[52,4,5,6,7],
+[22,5,6,7,8]]
 
 grid = [
 [8,2,22,97,38,15,0,40,0,75,4,5,7,78,52,12,50,77,91,8],
@@ -63,10 +63,8 @@ for row in rows:
         * check down
         * check left
         * check right
-        * check diag up left
-        * check diag up right
-        * check diag down left
         * check diag down right
+        * check diag down left
 '''
 
 # Code
@@ -80,33 +78,43 @@ def grid_function(grid, number):
             # print 'At col_index %d' % col_index
             # print 'Current grid number is %d' % grid[row_index][col_index]
 
-            # UP
-            if row_index - 3 >= 0:
-                # print 'row_index - 3 is > = 0'
-                array = []
-                for i in range(0,4):
-                    array.append(grid[row_index-i][col_index])
-                # print 'array is now ', array
-                # print 'get_product(array) is now ', get_product(array)
-                if get_product(array) not in results:
-                    results.append(get_product(array))
-
-    # DOWN
-    for row_index in range(0, len(grid)):
-        # print 'At row_index %d' % row_index
-        for col_index in range(0, len(grid[row_index])):
-            if row_index + 3 < len(grid):
+            # DOWN
+            if row_index + number-1 < len(grid):
                 # print 'row_index + 3 is > = 0'
                 array = []
-                for i in range(0,4):
+                for i in range(0,number):
                     array.append(grid[row_index+i][col_index])
                 # print 'array is now ', array
                 # print 'get_product(array) is now ', get_product(array)
                 if get_product(array) not in results:
                     results.append(get_product(array))
 
-    return results
+            # RIGHT
+            if col_index + number-1 < len(grid[0]):
+                array = []
+                for i in range(0,number):
+                    array.append(grid[row_index][col_index+i])
+                if get_product(array) not in results:
+                    results.append(get_product(array))
 
-# Testing
-print 'Expecting [1651104, 4540536]'
-print grid_function(test_grid_1, 4)
+            # DIAG DOWN RIGHT
+            if (row_index + number - 1 < len(grid)) & (col_index + number-1 < len(grid[0])):
+                array = []
+                for i in range(0,number):
+                    array.append(grid[row_index+i][col_index+i])
+                if get_product(array) not in results:
+                    results.append(get_product(array))
+
+            # DIAG DOWN LEFT - SOMEHOW THIS IS GOING BACKWARDS
+            if (row_index + number - 1 < len(grid)) & (col_index - number-1 < len(grid[0])):
+                array = []
+                for i in range(0,number):
+                    array.append(grid[row_index+i][col_index-i])
+                if get_product(array) not in results:
+                    print 'array is: ', array
+                    results.append(get_product(array))
+
+    return sorted(results)
+
+if __name__ == '__main__':
+    print grid_function(test_grid_1, 4)
